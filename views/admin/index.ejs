@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>title</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      padding: 70px 0 30px 0;
+      box-sizing: border-box;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    main,
+    main div.row,
+    main div.row div.my_body,
+    main div.row div.my_body div.panel {
+      height: 100%;
+    }
+
+    aside.my_nav {
+      position: fixed;
+      top: 70px;
+      left: 10px;
+      width: calc(100% / 6 - 40px);
+    }
+
+    footer {
+      background-color: rgba(188, 250, 255, 0.52);
+      line-height: 30px;
+    }
+
+    div.my_body div.panel div.panel-body {
+      height: calc(100% - 38px);
+      overflow-y: auto;
+    }
+
+    button {
+      border-radius: 5px;
+    }
+
+    #rich_txt img {
+      width: 200px;
+    }
+
+    #one tbody img,
+    #two tbody img {
+      width: 220px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <!-- sr-only 用于提升可访问性（accessibility），它的含义是 screen reader only（仅提供给屏幕阅读器使用） -->
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+
+      <!-- 这个元素在移动设备中将被折叠起来 -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active hidden-sm"><a href="#">公司简介</a></li>
+          <li class="hidden-sm hidden-md"><a href="#">新品出炉</a></li>
+          <li class="hidden-sm hidden-md"><a href="#">产品介绍</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+          <li class="hidden-sm"><a href="#">加强联系</a></li>
+        </ul>
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="loginLink">
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <main class="container-fluid" style="display: block;">
+    <aside class="panel panel-primary my_nav">
+      <div class="panel-heading">
+        <h3 class="panel-title">管理控制台</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled" style="line-height: 40px;">
+          <li>
+            <a href="#one" class="active">添加新闻</a>
+          </li>
+          <li>
+            <a href="#two" onclick="delDataInit()" class="">删除数据</a>
+          </li>
+          <li>
+            <a href="#three" class="">数据修改</a>
+          </li>
+          <li>
+            <a href="#four" class="">修改密码</a>
+          </li>
+          <li>
+            <a href="#five" class="">清理图片</a>
+          </li>
+          <li>
+            <a href="#six" class="">上传轮播图</a>
+          </li>
+          <li>
+            <a href="#seven" class="">上传图片</a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="row">
+      <div class="col-md-10 col-md-offset-2 my_body">
+        <div class="panel panel-primary" id="one">
+          <div class="panel-heading">
+            <h3 class="panel-title">添加数据</h3>
+          </div>
+          <div class="panel-body container">
+            <form class=" form-horizontal text-center form1" role="form">
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">图片</label>
+                <div class=" col-sm-11">
+                  <input name="image" type="file" class="form-control" required></input>
+                </div>
+              </div>
+              <div class=" form-group has-feedback">
+                <button type="submit" class=" btn-primary">添加</button>
+                <button type="reset" class=" btn-danger">重置</button>
+              </div>
+            </form>
+            <hr>
+            <form class=" form-horizontal text-center form2" role="form">
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">标题：</label>
+                <div class=" col-sm-11">
+                  <input name="title" class=" form-control">
+                </div>
+              </div>
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">内容：</label>
+                <div class=" col-sm-11">
+                  <textarea rows="10" name="content" class="form-control"><p></p></textarea>
+                </div>
+              </div>
+              <div class="btn-group">
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" checked value="headlines">头条新闻
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" value="comprehensive">综合新闻
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" value="academic">学术动态
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" value="story">师大故事
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" value="newst">最新新闻
+                </label>
+                <label class="btn btn-default">
+                  <input type="radio" name="newType" value="newhot">最新新闻
+                </label>
+              </div>
+
+              <div class=" form-group has-feedback">
+                <button type="submit" class=" btn-primary">添加</button>
+                <button type="reset" class=" btn-danger">重置</button>
+              </div>
+
+            </form>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">标题</th>
+                  <th style="text-align: center;">图片</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel panel-primary" id="two">
+          <div class="panel-heading">
+            <h3 class="panel-title">删除数据</h3>
+          </div>
+          <div class="panel-body text-center">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class=" text-center">标题</th>
+                  <th class=" text-center">图片</th>
+                </tr>
+              </thead>
+              <tbody class="ss">
+
+              </tbody>
+            </table>
+            <ul class="pagination" id="paging">
+            </ul>
+          </div>
+        </div>
+        <div class="panel panel-primary" id="three">
+          <div class="panel-heading">
+            <h3 class="panel-title">数据修改</h3>
+          </div>
+          <div class="panel-body">
+            <div class="container">
+              <div class="row" style="margin-bottom: 10px;">
+                <label class="col-sm-2 control-label">请输入要查询的新闻标题</label>
+                <div class="col-sm-5">
+                  <input class="form-control searchTxt">
+                </div>
+                <div class="col-sm-3">
+                  <button type="button" class="btn btn-default searchBtn">搜索</button>
+                </div>
+              </div>
+              <form class="form-horizontal text-center" role="form">
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">新闻标题：</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name='title' required>
+                    <input type="hidden" value="" name='id'>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">新闻内容：</label>
+                  <div class="col-sm-10">
+                    <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+                    <textarea class="form-control" name='content' rows="10" cols="30"></textarea>
+                  </div>
+                </div>
+                <div class="form-group has-feedback" style="margin-top:30px">
+                  <button type="submit" class="btn btn-primary col-sm-offset-3">修改</button>
+                  <button type="reset" class="btn btn-danger col-sm-offset-1">重置</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary" id="four">
+          <div class="panel-heading">
+            <h3 class="panel-title">修改密码</h3>
+          </div>
+          <div class="panel-body text-center container">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <div class=" col-sm-3"></div>
+                <label class="col-sm-2 control-label">密码：</label>
+                <div class="col-sm-2">
+                  <input type="password" required class="form-control pwd" placeholder="请输入原密码" name="oldPwd">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class=" col-sm-3"></div>
+
+                <label class="col-sm-2 control-label">新密码：</label>
+                <div class="col-sm-2">
+                  <input type="password" required class="form-control pwd" placeholder="请输入新密码">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class=" col-sm-3"></div>
+
+                <label class="col-sm-2 control-label">确认密码：</label>
+                <div class="col-sm-2">
+                  <input type="password" required class="form-control" placeholder="请确认密码" name="reNewPwd">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">修改</button>
+              <button type="reset" class="btn btn-danger">重置</button>
+            </form>
+          </div>
+        </div>
+        <div class="panel panel-primary" id="five">
+          <div class="panel-heading">
+            <h3 class="panel-title">清理垃圾图片</h3>
+          </div>
+          <div class=" panel-body text-center">
+            <hr>
+            <button class="clearNewsImg">清理news图片</button>
+            <hr>
+            <button class="clearAdvImg">清理adv图片</button>
+            <hr>
+          </div>
+        </div>
+        <div class="panel panel-primary" id="six">
+          <div class="panel-heading">
+            <h3 class="panel-title">上传轮播广告图</h3>
+          </div>
+          <div class="panel-body container">
+            <form class=" form-horizontal text-center" role="form">
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">标题:</label>
+                <div class=" col-sm-11">
+                  <input name="title" class=" form-control">
+                </div>
+              </div>
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">内容:</label>
+                <div class=" col-sm-11">
+                  <textarea name="content" id="" rows="5" cols="150" rows="10"></textarea>
+                </div>
+              </div>
+              <div class=" form-group has-feedback">
+                <label class=" col-sm-1 control-label">Img:</label>
+                <div class=" col-sm-11">
+                  <input name="image" type="file" class=" form-control">
+                </div>
+              </div>
+              <div class=" form-group has-feedback">
+                <button type="submit" class=" btn-primary">添加</button>
+                <button type="reset" class=" btn-danger">重置</button>
+              </div>
+            </form>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="text-align: center;">标题</th>
+                  <th style="text-align: center;">图片</th>
+                </tr>
+              </thead>
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer navbar-fixed-bottom">
+    <ul class="list-inline text-center" style="margin-bottom: 0">
+      <li><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备11008151号</a></li>
+      <li>京公网安备11010802014853</li>
+    </ul>
+  </footer>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/base.js"></script>
+
+  <script>
+    /* =====================添加数据===================== */
+    var one = document.getElementById('one');
+    var upImageForm = one.querySelector('form.form1');
+    var addDataForm = one.querySelector('form.form2');
+    var textarea = addDataForm.querySelector('textarea');
+    var oTbody = one.querySelector('tbody');
+    base.add(upImageForm, 'submit', function (ev) {
+      var e = ev || event;
+      var data = new FormData(this);
+      base.stopDefault(e);
+      // 2进制数据用ajax
+      $.ajax({
+        url: "/admin/upload",
+        type: "post",
+        data: data,
+        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (rs) {
+          // console.log(res);
+          if (!rs) {
+            alert('你妹有选择图片')
+            return
+          }
+          var img = `<img src="/upload/${rs}"><p></p>`;
+          textarea.value += img;
+        },
+        error: function () {
+          alert('操作失败不当')
+        }
+      });
+    })
+
+    base.add(addDataForm, 'submit', function (ev) {
+      var e = ev || event;
+      base.stopDefault(e);
+      $.post('/admin/addData', $(this).serialize(), function (rs) {
+        if (rs) {
+          var imgarr = rs.content.match(/<img[^>]+>/);
+          if (imgarr !== null)
+            var img = imgarr[0];
+          else
+            img = '';
+          oTbody.innerHTML =
+            `<tr><td align="center" valign="middle">${rs.title}</td><td align="center" valign="middle">${img}</td></tr>` +
+            oTbody.innerHTML;
+        } else {
+          alert('插入失败')
+        }
+      }, 'json')
+    })
+    //================================删除数据================================
+    var two = document.getElementById('two');
+    var paging = document.querySelector('ul.pagination');
+    var tbody1 = two.querySelector('tbody');
+    var pageSize = 4,
+      curPage = 0,
+      pages = 0;
+
+    function delDataInit(recall) {
+      // 1包装分页器
+      $.getJSON('/admin/getRecords', function (rs) {
+        pages = Math.ceil(rs / pageSize);
+        var str = '';
+        str = `<li class="disabled first"><a href="##">&laquo;首页</a>
+                </li class="disabled prev"><li class="disabled">
+                    <a href="##">&laquo;上一页</a></li>`;
+        for (var i = 0; i < pages; i++) {
+          if (i === 0) {
+            str += `<li class='number active' index=${i}><a href="##">${i + 1}</a></li>`
+          } else {
+            str += `<li class='number' index=${i}><a href="##">${i + 1}</a></li>`
+          }
+        }
+        str += `<li class='next'><a href="##">下一页&raquo;</a></li>
+                  <li class='last'><a href="##">尾页&raquo;</a></li>`;
+        // $('#paging').html(str);
+        paging.innerHTML = str;
+        if (recall) {
+          recall();
+        }
+        show_p(curPage);
+      });
+    }
+
+    function show_p(cPage) {
+      $.getJSON('/admin/getPage', {
+        cPage,
+        pageSize
+      }, function (arr) {
+        var str = '';
+        if (!arr) {
+          // 如果数据为空则清空Tbody
+          tbody1.innerHTML = '';
+          return
+        }
+        // console.log(arr);
+        arr.forEach(el => {
+          var imgarr = el.content.match(/<img[^>]+>/);
+          if (imgarr !== null)
+            var img = imgarr[0];
+          else
+            img = '';
+          str += `<tr>
+                        <td>${el.title}</td>
+                        <td>${img}</td>
+                        <td><button data-id='${el.id}'>删除</button></td>
+                        </tr>`
+        });
+        // document.getElementById('list1').innerHTML=str  效果一样.
+        tbody1.innerHTML = str;
+      })
+    }
+    base.agent(tbody1, 'button', 'click', function () {
+      if (confirm('你确信要删除吗？')) {
+        var id = this.getAttribute('data-id');
+        $.getJSON('/admin/delete?id=' + id, function (rs) {
+          if (rs) {
+            delDataInit(function () {
+              // console.log(pages)
+              if (curPage > pages - 1) curPage = curPage - 1;
+              change();
+            });
+          } else {
+            alert('删除失败')
+          }
+        })
+      }
+      show_p(curPage);
+    })
+    // var paging = document.getElementById('paging');
+    base.agent(paging, 'li', 'click', function () {
+      if (this.classList.contains('active')) return;
+      if (this.classList.contains('first'))
+        curPage = 0;
+      else if (this.classList.contains('last'))
+        curPage = pages - 1;
+      else if (this.classList.contains('prev')) {
+        curPage = curPage > 0 ? curPage - 1 : 0
+      } else if (this.classList.contains('next')) {
+        curPage = curPage < pages - 1 ? curPage + 1 : curPage
+      } else {
+        curPage = this.getAttribute('index') - 0;
+      }
+      show_p(curPage);
+      change(curPage);
+    });
+
+    function change() {
+      var lis = paging.querySelectorAll('li');
+      base.clearCls(lis, 'disabled');
+      base.clearCls(lis, 'disabled');
+      base.clearCls(lis, 'active');
+      if (curPage === 0) {
+        lis[0].classList.add('disabled');
+        lis[1].classList.add('disabled');
+        lis[2].classList.add('active');
+      } else if (curPage === pages - 1) {
+        lis[pages + 3].classList.add('disabled');
+        lis[pages + 2].classList.add('disabled');
+        lis[pages + 1].classList.add('active');
+      } else {
+        lis[curPage + 2].classList.add('active')
+      }
+    }
+    /* =====================修改数据===================== */
+    var three = document.getElementById('three');
+    var searchTxt = three.querySelector('input.searchTxt');
+    var searchBtn = three.querySelector('button.searchBtn');
+    var editForm = three.querySelector('form');
+    var title = editForm.querySelector('input[name="title"]')
+    var content = editForm.querySelector('textarea[name="content"]')
+    var id = editForm.querySelector('input[name="id"]')
+    var img = editForm.querySelector('img')
+    base.add(searchBtn, 'click', function () {
+      $.getJSON('admin/search?keyword=' + searchTxt.value, function (res) {
+        // var len = res.length;
+        console.log(res)
+        if (res) {
+          title.value = res.title;
+          content.value = res.content;
+          id.value = res.id;
+        }
+      })
+    });
+    base.add(editForm, 'submit', function (ev) {
+      var e = ev || event;
+      base.stopDefault(e);
+      $.getJSON('/admin/edit', $(this).serialize(), function (res) {
+        if (res) {
+          alert('修改成功。')
+        } else {
+          alert('修改失败。')
+        }
+      })
+    });
+    //================================垃圾图片清理================================
+    var five = document.getElementById('five');
+    // var oBtn = five.querySelectorAll('button');
+    base.agent(five, 'button', 'click', function () {
+      if (confirm('你确信要清理图片嘛？')) {
+        if (this.className === 'clearNewsImg')
+          var param = {
+            path: './assets/upload/'
+          };
+        else
+          param = {
+            path: './assets/adv/'
+          }
+        $.getJSON('/admin/clearImg', param, function (rs) {
+          alert('清理成功');
+        })
+      }
+    });
+    /* ==========================账号功能========================== */
+    var loginLink = document.getElementById('loginLink');
+    base.agent(loginLink, 'a', 'click', function () {
+      $.getJSON('/admin/logoutS', function (res) {
+        if (res) {
+          window.location.href = '/'
+        }
+      })
+    })
+    $.getJSON('/admin/getNiCheng', function (res) {
+      if (res) {
+        loginLink.innerHTML = `<a  href="">欢迎您：${res}</a>`
+      }
+    })
+    // /* =====================修改密码===================== */
+
+    var four = document.getElementById('four');
+    var pwdForm = four.querySelector('form');
+    var pwds = pwdForm.querySelector('input.pwd');
+    base.add(pwdForm, 'submit', function (ev) {
+      var e = ev || event;
+      base.stopDefault(e);
+      if (pwds[0].value !== pwds[1].value) {
+        alert('两次密码不一样');
+        return;
+      }
+      $.post('/admin/changePwd', $(this).serialize(), function (res) {
+        if (res) {
+          alert('修改成功');
+        } else {
+          alert('原密码不对');
+          // 清空表格.
+          pwdForm.reset();
+        }
+      }, 'json')
+
+    })
+
+
+    /* ==========================上传轮播图片=============================== */
+    var six = document.getElementById('six');
+    var upAdvForm = six.querySelector('form');
+    var sTbody = six.querySelector('tbody');
+    base.add(upAdvForm, 'submit', function (ev) {
+      var e = ev || event;
+      var data = new FormData(this);
+      base.stopDefault(e);
+      $.ajax({
+        url: "/admin/upAdv",
+        type: "post",
+        data: data,
+        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+          console.log(res);
+          if (res.flag === 1) {
+            alert('添加数据失败');
+          } else {
+            //延时发送否则图片显示不了
+            setTimeout(() => {
+              sTbody.innerHTML =
+                `<tr><td>${res.title}</td><td>
+                 <img width='150' src='/adv/${res.src}'></td></tr>` + sTbody.innerHTML;
+            }, 200)
+          }
+        },
+        error: function () {
+          alert('操作失败不当')
+        }
+      });
+
+    })
+
+  </script>
+</body>
+
+</html>

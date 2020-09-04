@@ -1,0 +1,109 @@
+@charset "utf-8";
+
+#twoLine {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+main.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+div.col-md-4 div.panel-body{
+
+  height: 320px;
+}
+div.col-md-4 div.panel-body p{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-indent: 2em;
+}
+
+div.col-md-4 div.panel-body img {
+  height: 180px;
+  border-radius: 5px;
+}
+
+main.container-fluid header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px #969696 solid;
+  margin: 20px 0;
+  padding-left: 15px;
+}
+
+main.container-fluid header h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+main.container-fluid header h3 small {
+  color: #002F94;
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+main.container-fluid header span {
+  padding-top: 30px;
+}
+
+main.container-fluid div.container img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+main.container-fluid div.container>p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+main.container-fluid div.container div.row div.media {
+  border-bottom: 1px #B5B5B5 solid;
+}
+
+main.container-fluid div.container div.row div.media a {
+  display: block;
+  background-color: #213A69;
+  border-radius: 5px;
+  padding: 3px 10px 6px;
+  margin: 10px;
+}
+
+main.container-fluid div.container div.row div.media a span {
+  display: block;
+  text-align: center;
+  color: white;
+}
+
+main.container-fluid div.container div.row div.media a span:first-child {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+main.container-fluid div.container div.row div.media div.media-body {
+  padding-top: 25px;
+}
+
+main.container-fluid div.container div.row div.media div.media-body h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+main.container-fluid div.container>div.url a p {
+  border-bottom: 1px #ccc solid;
+}
+
+main.container-fluid div.container>div.url a:hover {
+  display: block;
+  padding: 3px;
+  background-color: #3c7b8e;
+  height: 145px;
+  color: white;
+}

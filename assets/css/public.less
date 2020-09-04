@@ -1,0 +1,133 @@
+@charset "utf-8";
+header.container-fluid{
+  padding-left: 0;
+  padding-right: 0;
+  nav.navbar{
+    border-radius:0;
+    min-height: 40px;
+    background-color: #012269;
+    margin-bottom: 0;
+    a{
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 40px;
+      height: 40px;
+      color: #C7CAD6;
+    }
+    input{
+      padding-top: 0 ;
+      padding-bottom: 0 ;
+      height: 20px;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      background-color: #8091B4;
+      width: 150px;
+      vertical-align: top;
+    }
+    span{
+      color: #C7CAD6;
+      margin-left: 10px;
+    }
+    ul.navbar-right{
+      margin-right: 60px;
+    }
+  }
+  section{
+    background: url("../images/top_bg.jpg") no-repeat right top;
+    height: 156px;
+    position: relative;
+    >div{
+      background: url("../images/top_icon.png") no-repeat right bottom;
+      img{
+        margin-top: 15px;
+      }
+    }
+    menu{
+      position: absolute;
+      z-index: 100;
+      left: 0;
+      right: 0;
+      top:106px ;
+      height: 50px;
+      line-height: 50px;
+      margin: 0;
+      background-color: rgba(0,0,0,.1);
+      div.container{
+        display: flex;
+        dl{
+          dt{
+            margin-right: 50px;
+            color: white;
+            font-size: 16px;
+            line-height: 50px;
+            font-weight: 200;
+            cursor: default;
+          }
+          dd{
+            display: none;
+            position: absolute;
+            margin-top: -10px;
+            border: 1px #06449E solid;
+            background-color: white;
+            a{
+              display: block;
+              padding: 10px 15px;
+              border-top: 1px #06449E dotted;
+              &:hover{
+                background-color: #ccccbb;
+              }
+            }
+          }
+          &:hover dd{
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+footer{
+  background: url("../images/footer_bg.jpg") no-repeat;
+  padding-top: 30px;
+  margin-top: 30px;
+  div.container{
+    a{
+      display: block;
+      color: white;
+      line-height: 25px;
+    }
+    dl{
+      margin-bottom: 0;
+      dt{
+        height: 40px;
+        line-height: 40px;
+        color: white;
+        font-size: 15px;
+        &.line{
+          border-bottom: 1px white solid;
+          margin-bottom: 10px;
+        }
+      }
+      dd{
+        p{
+          color: white;
+        }
+      }
+    }
+    div.col-md-3:last-child{
+      text-align: center;
+      img{
+        width: 80%;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  >p{
+    height: 40px;
+    text-align: center;
+    background-color: #041438;
+    color: #5C716E;
+    line-height: 40px;
+  }
+}

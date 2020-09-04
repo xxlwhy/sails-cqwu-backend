@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Title</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/public.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/base.js"></script>
+
+</head>
+
+<body>
+  <header class="container-fluid">
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <!-- sr-only 用于提升可访问性（accessibility），它的含义是 screen reader only（仅提供给屏幕阅读器使用） -->
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <!-- 这个元素在移动设备中将被折叠起来 -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li class="hidden-sm hidden-md"><a href="/">首页</a></li>
+            <li class="hidden-sm hidden-md"><a href="/#">学生</a></li>
+            <li class="hidden-sm hidden-md"><a href="/#">教职工</a></li>
+            <li class="hidden-sm hidden-md"><a href="/#">考生</a></li>
+            <li class="hidden-sm hidden-md"><a href="/#">校友总会</a></li>
+          </ul>
+          <form action="/users/searchView" method="GET" class="navbar-form navbar-left hidden-md hidden-xs hidden-sm"
+            role="search">
+            <div class="form-group">
+              <input type="text" name="keyword" pattern="\S{1,50}" required class="form-control" id="input">
+              <span style="margin-top: 3px;" class="glyphicon glyphicon-search" id="spnBtn"></span>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="margin-left: 0px;">
+            <li><a href="##">网上办事大厅</a></li>
+            <li><a href="##">教务网</a></li>
+            <li><a href="##">成绩单</a></li>
+            <li><a href="##">图书</a></li>
+            <li><a href="##">邮箱</a></li>
+            <li><a href="##">招聘</a></li>
+            <li class="changeLi"></li>
+            <li class="changeLi"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <section>
+      <div class="container">
+        <a href="#">
+          <img src="/images/logo3.png" alt="">
+        </a>
+      </div>
+      <menu>
+        <div class="container">
+          <dl>
+            <dt>学校概况</dt>
+            <dd>
+              <a href="##">发展历程</a>
+              <a href="##">现任领导</a>
+              <a href="##">组织机构</a>
+              <a href="##">学校标识</a>
+              <a href="##">校园风光</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>院系设置</dt>
+            <dd>
+              <a href="##">文化与传媒学院</a>
+              <a href="##">数学与大数据学院</a>
+              <a href="##">外国语学院</a>
+              <a href="##">化学与环境工程学院</a>
+              <a href="##">园林与生命科学学院/特色植物研究院</a>
+              <a href="##">马克思主义学院/特色植物研究院</a>
+              <a href="##">电子信息与电气工程学院</a>
+              <a href="##">音乐学院</a>
+              <a href="##">体育学院</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>人才培养</dt>
+            <dd>
+              <a href="##">本科生教育</a>
+              <a href="##">研究生教育</a>
+              <a href="##">留学生教育</a>
+              <a href="##">继续教育</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>科学研究</dt>
+            <dd>
+              <a href="##">科研机构</a>
+              <a href="##">科研管理</a>
+              <a href="##">学科建设</a>
+              <a href="##">学术期刊</a>
+              <a href="##">重庆科技资源共享平台</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>招生就业</dt>
+            <dd>
+              <a href="##">招生信息网</a>
+              <a href="##">就业信息网</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>校园文化</dt>
+            <dd>
+              <a href="##">重文理报</a>
+              <a href="##">学生社团</a>
+              <a href="##">教工之家</a>
+              <a href="##">品牌活动</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>合作交流</dt>
+            <dd>
+              <a href="##">国际交流合作</a>
+              <a href="##">内地交流合作</a>
+              <a href="##">港澳台事务</a>
+            </dd>
+          </dl>
+          <dl>
+            <dt>信息公开</dt>
+            <dd>
+              <a href="##">一周会议通知</a>
+              <a href="##">领导机构</a>
+              <a href="##">实施办法</a>
+              <a href="##">指南与目录</a>
+              <a href="##">年度报告</a>
+            </dd>
+          </dl>
+        </div>
+      </menu>
+    </section>
+  </header>
+
+  <%-body%>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <dl>
+            <dt></dt>
+            <dd>
+              <img src="/images/sentrybox.gif" alt="">
+              <img src="/images/blue.png" alt="">
+              <p><img src="/images/beian.png" alt="">
+                <a href="/#" style="display: inline-block;margin-top: 20px"> 渝公网安备 50011802010053号</a></p>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-3">
+          <dl>
+            <dt class="line">联系方式</dt>
+            <dd>
+              <a href="/#">红河校区：重庆市永川区红河大道319号</a>
+              <a href="/#">星湖校区：重庆市永川卫星湖文化旅游区</a>
+              <p>邮编：402160</p>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-3">
+          <dl>
+            <dt class="line">友情链接</dt>
+            <dd>
+              <a href="/#">中华人民共和国教育部</a>
+              <a href="/#">重庆市人民政府网</a>
+              <a href="/#">重庆市教育委员会公众信息网</a>
+              <a href="/#">中国教育和科研计算机网</a>
+              <a href="/#">高等教育出版社</a>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-3">
+          <dl>
+            <dt></dt>
+            <dd>
+              <div class="row">
+                <div class="col-md-6">
+                  <img src="/images/indexWx.jpg" alt="">
+                  <p>官方微信 </p>
+
+                </div>
+                <div class="col-md-6">
+                  <img src="/images/indexWb.jpg" alt="">
+                  <p>官方微博</p>
+
+                </div>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <p>Copyright © Chongqing University Of Arts And Sciences All Rights Reserved | 渝ICP备05001037号 | 技术支持：现代教育技术中心</p>
+  </footer>
+
+  <script>
+    /* ======================全文搜索====================== */
+    var inputSearch = document.getElementById('input');
+    var spnBtn = document.getElementById('spnBtn');
+    base.add(spnBtn, 'click', function () {
+      // alert(888);
+      window.location.href = '/users/searchView?keyword=' + inputSearch.value;
+    })
+
+  </script>
+</body>
+
+</html>

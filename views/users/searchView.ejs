@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/cqwucss/xxl_cqwu_list.css">
+<main class=" container">
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="height: 35px;">
+          <class class="pull-right">更多</class>
+        </div>
+        <div class="panel-body">
+          <ul class="media-list">
+            <%
+            var str='';
+            arr.forEach(el=>{
+              str+=`
+              <li class="media">
+                <a class="pull-left" href="/users/detail?id=${el.id}">
+                    <img class="media-object thumbnail" src="${el.src}"
+                        style="height: 85.2px ; margin-bottom: 10px;" alt="...">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">${el.title}<small class=" pull-right">${el.date}</small></h4>
+                    <div>
+                      ${el.p}
+                    </div>
+                </div>
+            </li>`;
+            })
+            %>
+            <%-str%>
+
+          </ul>
+          <ul class="pagination pull-right">
+            <% str='';
+              str=`
+            <li class="${cPage==0?'disabled':''}"><a href="/users/searchView?keyword=${keyword}">&laquo;第一页</a></li>
+            <li class="${cPage==0?'disabled':''}"><a href="/users/searchView?cPage=${cPage>0?cPage-1:0}&keyword=${keyword}">&laquo;上一页</a></li>
+            `;
+            for(var i=0;i<pages;i++){
+                if(i==cPage)
+                    str+=`<li class="active"><a href="/users/searchView?cPage=${i}&keyword=${keyword}">${i+1}</a></li>`;
+                else
+                    str+=`<li><a href="/users/searchView?cPage=${i}&keyword=${keyword}">${i+1}</a></li>`;
+                }
+                str+=`
+                <li class="${cPage==pages-1?'disabled':''}"><a href="/users/searchView?cPage=${cPage==pages-1?cPage:cPage-0+1}&keyword=${keyword}">下一页&raquo;</a></li>
+                <li class="${cPage==pages-1?'disabled':''}"><a href="/users/searchView?cPage=${pages-1}&keyword=${keyword}">最后一页&raquo;</a></li>`;
+            %>
+            <%-str%>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-3 visible-lg">
+      <div class="panel panel-info">
+        <div class="panel-heading">院系动态<a class="pull-right">更多&raquo;</a></div>
+        <div class="panel-body">
+          <ul class="ul1">
+            <!-- 通用列表样式 -->
+            <li title="教育学院党总支开展主题党日活动">
+              <a href="/##">
+                <span class="all-title">教育学院党总支开展主题党日活动</span><span class="all-time">[04-30]</span>
+              </a>
+            </li>
+            <li title="青春战“疫”嵌入志愿行动">
+              <a href="/##">
+                <span class="all-title">青春战“疫”嵌入志愿行动</span><span class="all-time">[04-30]</span>
+              </a>
+            </li>
+            <li title="我院赴重庆师范大学调研项目合作">
+              <a href="/##">
+                <span class="all-title">我院赴重庆师范大学调研项目合作</span><span class="all-time">[04-30]</span>
+              </a>
+            </li>
+            <li title="践行初心担使命 疫情防控当先锋——我院辅导员开展网络主题教育活动">
+              <a href="/##">
+                <span class="all-title">践行初心担使命 疫情防控当先锋——我院辅导员开展网络主题教育活动</span><span class="all-time">[04-30]</span>
+              </a>
+            </li>
+            <!-----------FAST_WEB 横向焦点图滚动开始----------->
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">联系我们</div>
+        <div class="panel-body">
+          <ul class="ul2">
+            <li style="margin-left: 20px;">网络信息科：<span style="position:absolute;right: 65px;">023-49891721</span></li>
+            <li style="margin-left: 20px;">宣&nbsp;&nbsp;&nbsp; 传&nbsp;&nbsp;&nbsp;科：<span
+                style="position:absolute;right: 65px;">023-49891720</span></li>
+            <li style="margin-left: 20px;">统&nbsp;&nbsp;&nbsp; 战&nbsp;&nbsp;&nbsp;科：<span
+                style="position:absolute;right: 65px;">023-49891990</span></li>
+            <li style="margin-left: 20px;">融媒体中心：<span style="position:absolute;right: 65px;">023-49891721</span></li>
+            <li style="margin-left: 20px;">校报编辑部：<span style="position:absolute;right: 65px;">023-49891772</span></li>
+            <li class="w-img">
+              <div>
+                <img src="/cqwucss/indexWx.jpg" class=" img-responsive">
+                <h5>官方微信</h5>
+              </div>
+              <div>
+                <img src="/cqwucss/indexWb.jpg" class=" img-responsive">
+                <h5>官方微博</h5>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

@@ -1,0 +1,274 @@
+1、全局安装：cnpm install -g sails
+2、创建项目：sails new sails_shop,选2
+	或者：
+		sails new sails_shop --fast,选2
+		cd sails_cqwu
+		cnpm install 注：安装依赖包
+21.启动mongodb:进入mongodb/bin目录：mongod --dbpath E:\node\2019\sails\sails_cqwu\data,路径要修改
+3、启动项目：sails lift
+4、使用自动路由：修改config->blueprints.js->actions: true
+5、创建路由控制：
+  sails generate controller users index list list1 detail login
+6、自定义路由：config->routes.js
+  '方式 请求名'：{响应方式:'路由'} 注：方式省略表示ALL，action方式可简写为字符串
+    '/': { view: 'index' },
+    'GET /users': {action: 'users/logout'},
+    也可：'GET /users': 'users/logout',
+    '/users/login': { action: 'users/login' },
+    'POST /users/zhuce': { view: 'users/zhuce' }
+    注：action：访问路由控制器里的action
+        view:直接渲染模板文件夹的模板文件
+7、对主页模板进行渲染：config->routes.js
+    '/': function (req,res) {
+      req.session.logined="bbbbb";
+      res.view('index',{title:req.session.logined})
+    },
+8、主页渲染方式2
+  在config->routes.js中修改根路由：
+  形如：  '/': 'UsersController.index',
+  在UsersController.js中添加主页路由：
+  形如：
+    index: async function (req, res) {
+        res.view('index',{title:99});
+    },
+9、前台访问：http://localhost:1337
+10、修改端口：config->local.js
+    module.exports = {
+      port:1338
+    }
+11、不使用默认布局：config->views.js
+    layout: false
+    某个模板文件不使用布局文件方法：
+    res.view({layout:false})
+12、使用自定义的布局文件：在路由或控制器的渲染中添加属性layout
+    req.session.logined="bbbbb";
+    res.view('index',{layout: 'layouts/manage',title:req.session.logined})
+13、连接数据库(orm)
+    (1).cnpm install sails-mysql --save
+    cnpm install sails-mongo --save-dev
+    或者cnpm install sails-mysql --save-exact
+    cnpm install sails-mongo --save
+    (2).<!--config/datastores.js-->
+      module.exports.datastores = {
+        default: {
+          adapter: 'sails-mysql',
+          url: 'mysql://user:password@localhost:3306/my_db_name',
+        },
+        mongoDb: {
+          adapter: 'sails-mongo',
+          url: 'mongodb://root:@localhost:27017/shop'
+        }
+      };
+    (3).<!--config/models.js-->
+    schema: true,//严格匹配数据表的模式,
+    migrate: 'alter',//在尽量不丢失数据的情况下，允许sails修改表的结构
+    attributes: {
+        createdAt: { type: 'number', autoCreatedAt: true, },
+        updatedAt: { type: 'number', autoUpdatedAt: true, },
+        id: { type: 'number', autoIncrement: true, }
+        <!--id: { type: 'string', columnName: '_id' } 注：mongodb使用-->
+
+    }
+    //允许sails自动添加三个字段
+    4.让某个集合model有单独的模式,常用于mongodb集合
+      如:<!--api/models/Normal.js-->
+      module.exports = {
+          schema: false,
+          attributes: {
+          }
+      };
+14、创建model(根下)
+  sails generate model news 注：实际上创建表或集合
+15、修改model文件
+  打开Admin.js,添加形如下表属性或结构:
+    attributes: {
+      zh: {type: 'string', required: true},
+      nc: {type: 'string', required: true},
+      pwd: {type: 'string', required: true}
+    }
+  //详细设置参见:数据库表各字段属性设置.html
+16、应用model,典型应用在控制器或数据操作模块下:
+    注意：async 与 await 必须应用在同一个函数
+  添加：
+    let rows=await Admin.create({zh: 'lcjtmp6@163.com1', nc: '六六六1', pwd: '6661'}).fetch();
+    console.log(rows);
+    return res.send('ok');
+    自动接收数据并插入表中方式：
+      let reg_info=req.allParams();
+      console.log(reg_info);
+      let row=await Manage.create(reg_info).fetch();
+
+  添加多条数据：
+      let data=[
+        {zh: 'lcjtmp1@163.com1', nc: 'aaaa1', pwd: '6661'},
+        {zh: 'lcjtmp2@163.com1', nc: 'bbbb1', pwd: '6661'},
+        {zh: 'lcjtmp3@163.com1', nc: 'cccc1', pwd: '6661'}
+      ];
+      let rows=await Admin1.createEach(data).fetch();
+      console.log(rows);
+      return res.send('ok');
+
+  查询:
+    增删改查只有查询不加feach()
+    let rs = await Admin.find(查询条件);
+    console.log(rs);
+    return res.send('ok');
+    条件设置见:https://sailsjs.com/documentation/concepts/models-and-orm/query-language
+    News.find({or:[{title:{contains:key}},{content:{contains:key}}]}).limit(1)
+
+  更新：
+    let rows=await Admin1.update({title: 'lcjtmp6@163.com'}, {nc: '我是改过的', pwd: '333'}).fetch();
+    console.log(rows);//返回一个数组，哪怕是一条数据,是被更新的数据
+    return res.send('ok');
+
+  删除：
+    let rows=await Admin1.destroy({id: 5}).fetch();
+    console.log(rows);//返回一个数组，哪怕是一条数据,是被删除的那条数据
+    return res.send('ok');
+
+  分页：
+    let rs = await Admin.find().skip(2).limit(1);
+    let rs = await Admin.find({skip:2,limit:2});
+    console.log(rs);
+    return res.send('ok');
+
+  统计记录数：
+    let rs = await Admin.count();
+    console.log(rs);//返回数字
+    return res.send('ok');
+
+  排序：
+    let rs = await Admin.find().sort('id desc');
+    console.log(rs);
+    return res.send('ok');
+17、应用拦截器
+  (1)在某个路由或操作中加入登录信息:如：req.session.userId=｛id:5,nc:'aaa'};
+  注销的时候把这个session删掉
+  (2)在api/policies/新建策略文件形如：isLogin.js
+    module.exports = async function (req, res, proceed) {
+      if (req.session.userId) {
+        return proceed();
+      }
+      return res.redirect('/users/login');
+    };
+  (3)在config/policies.js文件中修改是否应用策略
+    全局方式：
+      module.exports.policies = {
+        <!-- 所有路由都用策略 -->
+        '*': 'isLogin',
+        <!-- 排除 -->
+        'users/index': true,
+        'users/login': true
+      }
+    控制器方式：
+      module.exports.policies = {
+        UserController: {
+          '*': 'isLogin',
+          'delete': 'isAdmin',
+          'login': true
+        }
+      }
+      注：一个操作要用多个策略用[],如：['isLoggedIn', 'isAdmin']
+18、文件上传
+  upload: function (req, res) {
+    req.file('image').upload(function (err, files) {
+      if (err)
+        return res.serverError(err);
+      let path=files[0].fd.split('\\');
+      path=path[path.length-1];
+      console.log(path);//获取的文件默认放在.tmp/uploads下,这个名字应存一份到数据库
+      return res.json({
+        message: files.length + ' file(s) uploaded successfully!',
+        files: files
+      });
+    });
+  }
+  传到自定义文件夹：
+    req.file('avatar').upload(
+      {
+        dirname: require('path').resolve(sails.config.appPath, 'assets/upload')
+      },
+      function (err, files) {
+        if (err)
+          return res.serverError(err);
+        let path=files[0].fd.split('\\');
+        path=path[path.length-1];
+        console.log(path);//获取的文件放在assets/images下,这个名字应存一份到数据库
+        return res.json({message: files.length + ' file(s) uploaded successfully!'});
+    });
+18、同时应用多个数据源
+    (1).config->datastores.js
+        module.exports.datastores = {
+            default: {
+              adapter: 'sails-mysql',
+              url: 'mysql://root:123@localhost:3306/cqwu',
+            },
+            mongoDb: {
+              adapter: 'sails-mongo',
+              url: 'mongodb://root:@localhost:27017/shop'
+            }
+        };
+    (2).config->models.js
+        module.exports.models = {
+          schema: false,//无模式，可支持多种数据源
+          migrate: 'alter',//允许系统根据情况修改结构
+          attributes: {
+            // createdAt: { type: 'number', autoCreatedAt: true, },
+            // updatedAt: { type: 'number', autoUpdatedAt: true, },
+            id: {type: 'number', autoIncrement: true,},
+            <!--id: { type: 'string', columnName: '_id' }-->
+          },
+          dataEncryptionKeys: {
+            default: 'Yinwzamuxr9wTGiSTc7Eox31f8idirOavmpaB4UfycU='
+          },
+          cascadeOnDestroy: true
+        };
+    (3).api->models->UserTabe.js //userTable为表或集合名称
+        使用默认适配器default:
+        module.exports = {
+            attributes: {
+              zh: {type: 'string', required: true},
+              nc: {type: 'string', required: true},
+              pwd: {type: 'string', required: true}
+            }
+        };
+        使用mongoDb适配器:
+        module.exports = {
+            datastore: 'mongoDb',
+            attributes: {
+              id: {type: 'string', columnName: '_id'},
+              zh: {type: 'string', required: true},
+              nc: {type: 'string', required: true},
+              pwd: {type: 'string', required: true}
+            },
+        };
+19.项目移植
+	sails new myapp --fast
+	选2，
+	进入myapp文件夹，将原项目中自己做的部分对应考入新路径中
+	cd myapp
+	cnpm install
+	启动数据库
+	sails lift
+20.前后端分离式跨域访问方式。
+  在api/policies/下新建策略文件如：allow.js,内容如下：
+    module.exports = async function (req, res, proceed) {
+      res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+      res.header("Access-Control-Allow-Credentials","true");
+      return proceed();
+    }
+  然后再在config/policies.js文件中添加内容即可
+    '*': 'allow'
+21.sails里调用sql方法（News是数据模型文件)
+    News.query('select * from news inner join user on news.id=user.id', [], function (err, rs) {
+      console.log(rs.rows);
+      res.send(rs.rows);
+    });
+22.assets/js和assets/dependencies下的文件会自动加载进布局文件layout.ejs中，
+  从而出现问题，去掉layout.ejs加载js文件前面的注释句即可
+23.less文件的使用方法，修改assets/styles/importer.less里的@import '***.less'即可把所有
+  less 文件加载进来，但要注意冲突，加前缀可解决
+
+
+
+

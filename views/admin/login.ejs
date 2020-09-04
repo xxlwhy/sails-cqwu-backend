@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>login</title>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/base.js"></script>
+  <style>
+    div.container {
+      width: 500px;
+      margin-top: 150px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        请登录
+      </div>
+      <div class="panel-body">
+
+        <form class="form-horizontal" role="form" id="login">
+          <div class="form-group has-feedback">
+            <div class=" col-sm-1"></div>
+            <label class="col-sm-2 control-label">账号：</label>
+            <div class="col-sm-7">
+              <!-- pattern="\w{3,10}" -->
+              <input class="form-control" required name='username' placeholder="请输入您的账号">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class=" col-sm-1"></div>
+
+            <label class="col-sm-2 control-label">密码：</label>
+            <div class="col-sm-7">
+              <!-- pattern="\w{3,10}" -->
+              <input type="password" required class="form-control" placeholder="请输入您的密码" name="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class=" col-sm-1">
+
+            </div>
+
+            <label class="col-sm-2 control-label" for="exampleInputYzm" style="margin-top: 10px;">验证码:</label>
+            <div class="col-sm-4" style="margin-top: 10px;">
+              <input pattern="\w{4}" required class="form-control" id="exampleInputYzm" placeholder="请输入验证码" name="yzm">
+            </div>
+            <div class=" col-sm-5" id="userYzm">
+
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2 checkbox">
+              <button type="submit" class="btn btn-primary">登录</button>
+              <button data-toggle="modal" class="btn btn-primary" style="margin: 0 50px;" href="#register">注册</button>
+              <button type="reset" class="btn btn-danger">重置</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="register" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form class="form-horizontal" role="form">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">请注册</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group has-feedback">
+              <label class="col-sm-3 control-label" for="exampleInputZh">账号：</label>
+              <div class="col-sm-9">
+                <input name="username" class="form-control" required id="exampleInputZh" placeholder="请输入您的账号">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">密码：</label>
+              <div class="col-sm-9">
+                <input type="password" name="password" required class="form-control pwd" placeholder="请输入您的密码">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">确认密码：</label>
+              <div class="col-sm-9">
+                <input type="password" required class="form-control pwd" placeholder="请再次确认密码">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">昵称:</label>
+              <div class="col-sm-9">
+                <input required class="form-control" placeholder="请输入昵称" name="nicheng">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">注册</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    /* ======================登录====================== */
+    var formLogin = document.getElementById('login');
+    var changeLi = document.querySelectorAll('nav li.changeLi');
+    var userYzm = document.getElementById('userYzm');
+    $.getJSON('/admin/captcha', function (rs) {
+      userYzm.innerHTML = rs;
+    })
+    // 点击刷新验证码
+    base.add(userYzm, 'click', function () {
+      $.getJSON('/admin/captcha', rs => {
+        this.innerHTML = rs;
+      })
+    })
+
+    // // `<a data-toggle="modal" href="#login">登录</a>`
+    base.add(formLogin, 'submit', function (ev) {
+      var e = ev || event;
+      base.stopDefault(e);
+      // 收集表单信息
+      $.post('/admin/loginS', $(this).serialize(), function (res) {
+        // changeLi[0].innerHTML = `<a  href="">欢迎您${res.nicheng}</a>`
+        // changeLi[1].innerHTML = `<a class='logout' href="">注销</a>`
+        if (res === 1) {
+          alert('验证码不正确');
+        } else if (res === 2) {
+          alert('账号或密码不正确');
+        } else {
+          // 成功~~~
+          alert('登录成功')
+          window.location.href = '/admin';
+        }
+      }, 'json')
+    });
+    // base.agent(changeLi[0], 'a', 'click', function () {
+    //   $.getJSON('/admin/yzm', function (rs) {
+    //     userYzm.innerHTML = rs;
+    //   })
+
+    // })
+    // base.agent(changeLi[1], 'a', 'click', function () {
+    //   if (this.className === 'logout') {
+    //     $.getJSON('/admin/logoutS', function (res) {
+    //       if (res) {
+    //         alert('退出成功');
+    //         isLogin()
+    //       }
+    //     })
+    //   }
+    // })
+    /* ======================注册====================== */
+    var register = document.getElementById('register');
+    var regForm = register.querySelector('form');
+    var pwds = regForm.querySelectorAll('input.pwd');
+    base.add(regForm, 'submit', function (ev) {
+      var e = ev || event;
+      base.stopDefault(e);
+      // 取消前后空格
+      if (pwds[0].value !== pwds[1].value) {
+        alert('两次密码不同.');
+        return;
+      }
+      $.post('/admin/register', $(this).serialize(), function (res) {
+        console.log(res);
+        if (res) {
+          alert('注册成功！已为您自动登录，请牢记账号密码!');
+          window.location.href = '/admin';
+        } else {
+          alert('账号已经被占用!');
+        }
+      }, 'json')
+    });
+
+  </script>
+
+</body>
+
+</html>

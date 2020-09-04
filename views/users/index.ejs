@@ -1,0 +1,186 @@
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+      #slidershow img {
+        width: 100%;
+        height: 400px;
+      }
+
+      div.panel-body {
+        padding: 5px
+      }
+
+      p.sss {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+    </style>
+    <main class="container-fluid">
+      <div id="slidershow" class="carousel slide lcj-slide" data-ride="carousel">
+        <!-- 设置图片轮播的顺序 -->
+        <ol class="carousel-indicators">
+          <li data-target="#slidershow" data-slide-to="0" class="active"></li>
+          <li data-target="#slidershow" data-slide-to="1"></li>
+          <li data-target="#slidershow" data-slide-to="2"></li>
+          <li data-target="#slidershow" data-slide-to="3"></li>
+        </ol>
+        <!-- 设置轮播图片,须保证所有图片的宽高保持一致 -->
+        <div class="carousel-inner">
+          <%
+          var str=''
+          adv.forEach((el,i)=>{
+              if(i===0){
+                  str+=`<div class="item active">
+                      <a href="/users/advLink?id=${el.id}"><img src="/adv/${el.src}" alt=""></a>
+                      <div class="carousel-caption">
+                      </div>
+                  </div>`;
+              }else{
+                  str+=`<div class="item">
+                      <a href="/users/advLink?id=${el.id}"><img src="/adv/${el.src}" alt=""></a>
+                      <div class="carousel-caption">
+                      </div>
+                  </div>`;
+              }
+          })
+          %>
+          <%-str%>
+        </div>
+        <a class="left carousel-control" href="##" role="button">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="##" role="button">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+
+      </div>
+      <div class="container">
+        <header>
+          <h3>学校新闻
+            <small>NEWS</small>
+          </h3>
+          <span>MORE&raquo;</span>
+        </header>
+        <div class="row">
+          <%
+          str='';
+          news.forEach(el=>{
+            str+=`<div class="col-md-4">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">${el.title}</h3>
+                </div>
+                <div class="panel-body">
+
+                    ${el.content}
+                </div>
+                <div class="panel-footer" style="text-align: right"><a href="/users/detail?id=${el.id}">了解更多&raquo;</a></div>
+              </div>
+            </div>`;
+          })
+          %>
+          <%-str%>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <header>
+              <h3>通知公告
+                <small>NOTICE</small>
+              </h3>
+              <span>MORE&raquo;</span>
+            </header>
+            <%
+              str='';
+              adv1.forEach(el=>{
+                str+=`<div class="media">
+                  <a class="pull-left" href="#">
+                  <span>${el.dateD}</span><span>${el.dateY}</span>
+                </a>
+                <div class="media-body" >
+                  <h4 class="media-heading">${el.title}</h4>
+                  <p class="sss" >
+                    ${el.content}
+                  </p>
+                </div>
+              </div>`;
+              })
+              %>
+            <%-str%>
+          </div>
+          <div class="col-md-6">
+            <header>
+              <h3>通知公告
+                <small>NOTICE</small>
+              </h3>
+              <span>MORE&raquo;</span>
+            </header>
+            <%
+              str='';
+              adv2.forEach(el=>{
+                str+=`<div class="media">
+                  <a class="pull-left" href="#">
+                  <span>${el.dateD}</span><span>${el.dateY}</span>
+                </a>
+                <div class="media-body" >
+                  <h4 class="media-heading">${el.title}</h4>
+                  <p class="sss" >
+                    ${el.content}
+                  </p>
+                </div>
+              </div>`;
+              })
+              %>
+            <%-str%>
+          </div>
+        </div>
+        <header>
+          <h3>专题网站
+            <small>TOPICS</small>
+          </h3>
+        </header>
+        <div class="row url">
+          <div class="col-md-3">
+            <a href="#">
+              <img class=" thumbnail" src="images/topics1.jpg" alt="">
+              <p style="text-align: center;">“不忘初心、牢记使命”主题教育专题网</p>
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="#">
+              <img class=" thumbnail" src="images/topics2.jpg" alt="">
+              <p style="text-align: center;">思想政治专题网</p>
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="#">
+              <img class=" thumbnail" src="images/topics4.gif" alt="">
+              <p style="text-align: center;">创新创业网</p>
+            </a>
+          </div>
+          <div class="col-md-3">
+            <a href="#">
+              <img class=" thumbnail" src="images/topics4.jpg" alt="">
+              <p style="text-align: center;">媒体视点</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </main>
+
+    <script>
+      $(function () {
+        $("#slidershow").carousel({
+          interval: 1500
+        });
+        $("#slidershow a.left").click(function () {
+          $(".carousel").carousel("prev");
+        });
+        $("#slidershow a.right").click(function () {
+          $(".carousel").carousel("next");
+        })
+      })
+
+    </script>
